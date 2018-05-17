@@ -1,0 +1,24 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Создание темы{% endblock %}
+{% block content %}
+    <div class="subject">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ back }}" role="button">Отмена</a>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.parent) }}</div>
+                    <div class="value new">{{ form_widget(form.parent) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.title) }}</div>
+                    <div class="value">{{ form_widget(form.title) }}</div>
+                </div>
+            </div>
+            {{ form_widget(form.hidden) }} <b>{{ form_label(form.hidden) }}</b>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

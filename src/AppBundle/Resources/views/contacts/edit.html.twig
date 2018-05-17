@@ -1,0 +1,35 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Редактирование контактов{% endblock %}
+{% block content %}
+    <div class="contacts">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ path('contacts') }}" role="button">Отмена</a>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.fio) }}</div>
+                    <div class="value">{{ form_widget(form.fio) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.telephone) }}</div>
+                    <div class="value">{{ form_widget(form.telephone) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.email) }}</div>
+                    <div class="value">{{ form_widget(form.email) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.address) }}</div>
+                    <div class="value">{{ form_widget(form.address) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.time) }}</div>
+                    <div class="value">{{ form_widget(form.time) }}</div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

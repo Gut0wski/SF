@@ -1,0 +1,19 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Жалобы{% endblock %}
+{% block content %}
+    <div class="complaint">
+        {{ form_start(form) }}
+        <div class="but">
+            {{ form_widget(form.submit) }}
+            <a class="btn btn-success" href="{{ back }}" role="button">Отмена</a>
+        </div>
+        <div class="tbl">
+            <div class="rw">
+                <div class="label">{{ form_label(form.text) }}</div>
+                <div class="value">{{ form_widget(form.text) }}</div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

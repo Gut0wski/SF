@@ -1,0 +1,15 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="index">
+        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+            <div class="edit">
+                <a href="{{ path('index_edit') }}" data-toggle="tooltip" title="Редактировать">
+                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                </a>
+            </div>
+        {% endif %}
+        {{ index.value | raw }}
+    </div>
+{% endblock %}

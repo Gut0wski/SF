@@ -1,0 +1,104 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Расчетная ведомость{% endblock %}
+{% block content %}
+    <div class="calculate">
+        <div class="container-fluid control">
+            <div class="row">
+                <div class="col but">
+                    <a class="btn btn-success" href="{{ path('profiles', { 'page' : back }) }}" role="button">Назад</a>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-block">
+            <table class="desktop">
+                <thead>
+                <tr>
+                    <th rowspan="2">Период</th>
+                    <th rowspan="2">Наименование ресурса</th>
+                    <th rowspan="2">Тариф периода</th>
+                    <th colspan="3">Контрольное показание</th>
+                    <th rowspan="2">К оплате (руб.)</th>
+                    <th rowspan="2">Оплачено (руб.)</th>
+                    <th colspan="2">Долг (руб.)</th>
+                </tr>
+                <tr>
+                    <th>Дата снятия</th>
+                    <th>Значение</th>
+                    <th>Расход</th>
+                    <th>В периоде</th>
+                    <th>Общий<br>по услуге</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            {% set rowspan = new_rowspan(list, loop.index0, 'period') %}
+                            {% if rowspan %}
+                                <td rowspan="{{ rowspan }}">{{item.period}}</td>
+                            {% endif %}
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.tariff }}</td>
+                            <td>{{ item.measurement_date }}</td>
+                            <td>{{ item.measurement_value }}</td>
+                            <td>{{ item.value }}</td>
+                            <td>{{ item.to_pay }}</td>
+                            <td>{{ item.payment }}</td>
+                            <td>{{ item.to_pay - item.payment }}</td>
+                            <td>{{ calc_credit(rows, item.num, item.type) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-md-none">
+            {% for item in list %}
+                <table class="mobile">
+                    <tr>
+                        <td>Период</td>
+                        <td>{{ item.period }}</td>
+                    </tr>
+                    <tr>
+                        <td>Наименование ресурса</td>
+                        <td>{{ item.type }}</td>
+                    </tr>
+                    <tr>
+                        <td>Тариф периода</td>
+                        <td>{{ item.tariff }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата снятия контрольного показания</td>
+                        <td>{{ item.measurement_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Контрольное показание</td>
+                        <td>{{ item.measurement_value }}</td>
+                    </tr>
+                    <tr>
+                        <td>Расход за период (куб./кВт.)</td>
+                        <td>{{ item.value }}</td>
+                    </tr>
+                    <tr>
+                        <td>К оплате (руб.)</td>
+                        <td>{{ item.to_pay }}</td>
+                    </tr>
+                    <tr>
+                        <td>Оплачено (руб.)</td>
+                        <td>{{ item.payment }}</td>
+                    </tr>
+                    <tr>
+                        <td>Долг в периоде (руб.)</td>
+                        <td>{{ item.to_pay - item.payment }}</td>
+                    </tr>
+                    <tr>
+                        <td>Общий долг (руб.)</td>
+                        <td>{{ calc_credit(rows, item.num, item.type) }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

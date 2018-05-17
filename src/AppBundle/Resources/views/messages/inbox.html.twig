@@ -1,0 +1,56 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Входящие{% endblock %}
+{% block content %}
+    <div class="messages">
+        <nav>
+            <a href="{{ path('inbox') }}" class="active">Входящие</a>
+            <a href="{{ path('outbox') }}">Исходящие</a>
+            <a href="{{ path('letter') }}">Написать</a>
+        </nav>
+        <div>
+            <div class="d-none d-md-block">
+                <table class="desktop">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Отправитель</th>
+                            <th>Тема</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in list %}
+                            <tr {% if item.reading == 0 %}class="new"{% endif %} id="d{{ item.id }}" onclick="viewMessage({{ item.id }}, 1);">
+                                <td>{{ item.date | date("d.m.Y H:i") }}</td>
+                                <td>{{ item.sender.username }}</td>
+                                <td>{{ item.subject }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block d-md-none">
+                {% for item in list %}
+                    <table class="mobile" onclick="viewMessage({{ item.id }}, 1);">
+                        <tr>
+                            <td>Дата</td>
+                            <td {% if item.reading == 0 %}class="new"{% endif %} id="m{{ item.id }}">{{ item.date | date("d.m.Y H:i") }}</td>
+                        </tr>
+                        <tr>
+                            <td>Отправитель</td>
+                            <td>{{ item.sender.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>Тема</td>
+                            <td>{{ item.subject }}</td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(list) }}
+            </div>
+            <textarea cols="30" rows="10" class="text form-control" readonly></textarea>
+        </div>
+    </div>
+{% endblock %}

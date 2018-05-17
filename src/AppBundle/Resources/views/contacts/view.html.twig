@@ -1,0 +1,36 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Контакты правления{% endblock %}
+{% block content %}
+    <div class="contacts">
+        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+            <div class="edit">
+                <a href="{{ path('contacts_edit') }}" data-toggle="tooltip" title="Редактировать">
+                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                </a>
+            </div>
+        {% endif %}
+        <div class="tbl">
+            <div class="rw">
+                <div class="label">Ф.И.О.:</div>
+                <div class="value">{{ contacts[0].fio }}</div>
+            </div>
+            <div class="rw">
+                <div class="label">Телефон:</div>
+                <div class="value">{{ contacts[0].telephone }}</div>
+            </div>
+            <div class="rw">
+                <div class="label">Email:</div>
+                <div class="value">{{ contacts[0].email }}</div>
+            </div>
+            <div class="rw">
+                <div class="label">Адрес:</div>
+                <div class="value">{{ contacts[0].address }}</div>
+            </div>
+            <div class="rw">
+                <div class="label">Часы приема:</div>
+                <div class="value">{{ contacts[0].time }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

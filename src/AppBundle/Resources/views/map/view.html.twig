@@ -1,0 +1,15 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Карта СНТ{% endblock %}
+{% block content %}
+    <div class="map">
+        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+            <div class="edit">
+                <a href="{{ path('map_edit') }}" data-toggle="tooltip" title="Редактировать">
+                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                </a>
+            </div>
+        {% endif %}
+        <iframe src="{{ map.value }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+{% endblock %}

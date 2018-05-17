@@ -1,0 +1,11 @@
+AddDefaultCharset UTF-8
+
+Options -Indexes
+Options FollowSymlinks
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$
+RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI} ^.*$
+RewriteRule ^(.*)$ /web/$1

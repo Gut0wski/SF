@@ -1,0 +1,125 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Сообщения{% endblock %}
+{% block content %}
+    <div class="discussions">
+        <div class="container-fluid control">
+            <div class="row">
+                <div class="col links">
+                    <a href="{{ path('sections') }}">Разделы</a> \ <a href="{{ path('subjects', { 'section' : link.id }) }}">{{ link.title }}</a> \ {{ title }}
+                </div>
+            </div>
+        </div>
+        {% for item in block %}
+            <div class="block">
+                Вы заблокированы до {{ item.date_end | date("d.m.Y H:i") }} модератором {{ item.username }}.
+                Причина: {{ item.reason }}
+            </div>
+        {% endfor %}
+        <div class="item">
+            <div class="caption">
+                <div class="rw">
+                    <div class="title">
+                        {{ title }}
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                {% for item in list %}
+                    <div class="message" id="m{{ item.id }}">
+                        <div class="info d-table">
+                            <div class="d-table-row">
+                                <div class="left d-table-cell">
+                                    <div class="author">
+                                        {{ item.username }}:
+                                    </div>
+                                </div>
+                                <div class="right d-table-cell">
+                                    <div class="date">
+                                        <div>{{ item.date_create | date("d.m.Y H:i") }}</div>
+                                        {% if item.date_update is not empty %}
+                                            <div>Отредактировано: {{ item.date_update | date("d.m.Y H:i") }}</div>
+                                        {% endif %}
+                                    </div>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <div class="control">
+                                            <a href="{{ path('assessment', { 'message' : item.id, 'user' : app.user.id, 'type' : 1 }) }}"
+                                               data-toggle="tooltip" title="Нравится" class="positive">
+                                                + ({{ item.positive }})
+                                            </a>
+                                            <a href="{{ path('assessment', { 'message' : item.id, 'user' : app.user.id, 'type' : 2 }) }}"
+                                               data-toggle="tooltip" title="Не нравится" class="negative">
+                                                - ({{ item.negative }})
+                                            </a>
+                                            {% if block is empty %}
+                                                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/quote.png" class="lk"
+                                                     data-toggle="tooltip" title="Цитировать" onclick="setQuote({{ item.id }}, {{ subject }})">
+                                                {% if is_granted('ROLE_USER') %}
+                                                    <a href="{{ path('complaint_new', { 'message' : item.id }) }}"
+                                                       data-toggle="tooltip" title="Пожаловаться">
+                                                        <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/complain.png">
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                                                <a href="{{ path('block_new', { 'user' : item.user_id }) }}"
+                                                   data-toggle="tooltip" title="Блокировать">
+                                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/block.png">
+                                                </a>
+                                            {% endif %}
+                                            {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) or (item.user_id == app.user.id) %}
+                                                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png"
+                                                     data-toggle="tooltip" title="Редактировать" class="lk"
+                                                     onclick="setEdit({{ item.id }}, '{{ item.text }}', {{ subject }})">
+                                            {% endif %}
+                                            {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                                                <a href="{{ path('message_delete', { 'id' : item.id, 'subject' : subject }) }}"
+                                                   data-toggle="tooltip" title="Удалить" onclick="return confirmDelete(this, 'Удалить сообщение?');">
+                                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if subject != item.parent %}
+                            <div class="quote">
+                                <div class="author">
+                                    {{ item.parent_username }}:
+                                </div>
+                                <div class="text">
+                                    {{ item.parent_text }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="view">
+                            {{ item.text }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+        {% if (is_granted('IS_AUTHENTICATED_FULLY') and block is empty) %}
+            <div class="new-message">
+                {{ form_start(form) }}
+                    <div class="d-flex justify-content-between">
+                        <span id="descript"></span>
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    <div class="tbl">
+                        <div class="rw">
+                            <div class="value">{{ form_widget(form.parent) }}</div>
+                        </div>
+                        <div class="rw">
+                            <div class="value">{{ form_widget(form.text) }}</div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

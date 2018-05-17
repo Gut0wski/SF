@@ -1,0 +1,19 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Редактирование карты{% endblock %}
+{% block content %}
+    <div class="map">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ path('map') }}" role="button">Отмена</a>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.value) }}</div>
+                    <div class="value">{{ form_widget(form.value) }}</div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

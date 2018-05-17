@@ -1,0 +1,54 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Жалобы{% endblock %}
+{% block content %}
+    <div class="complaints">
+        <div class="d-none d-md-block">
+            <table class="desktop">
+                <thead>
+                    <tr>
+                        <th>Дата создания</th>
+                        <th>Сообщение в обсуждениях</th>
+                        <th>Инициатор</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.date | date("d.m.Y H:i") }}</td>
+                            <td>{{ item.message.text }}</td>
+                            <td>{{ item.user.username }} ({{ item.user.fio }})</td>
+                            <td>{{ item.text }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-md-none">
+            {% for item in list %}
+                <table class="mobile">
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>{{ item.date | date("d.m.Y H:i") }}</td>
+                    </tr>
+                    <tr>
+                        <td>Сообщение в обсуждениях</td>
+                        <td>{{ item.message.text }}</td>
+                    </tr>
+                    <tr>
+                        <td>Инициатор</td>
+                        <td>{{ item.user.username }} ({{ item.user.fio }})</td>
+                    </tr>
+                    <tr>
+                        <td>Описание</td>
+                        <td>{{ item.text }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

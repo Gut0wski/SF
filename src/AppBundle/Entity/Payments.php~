@@ -1,0 +1,51 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Payments
+ * @package AppBundle\Entity
+ * @ORM\Table(name="payments")
+ * @ORM\Entity
+ */
+class Payments
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="decimal", scale=10)
+     */
+    private $sum;
+
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $place;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

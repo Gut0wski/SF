@@ -1,0 +1,105 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Тарифы{% endblock %}
+{% block content %}
+    <div class="tariffs">
+        <div class="actually container-fluid">
+            <div class="row">
+                {% for item in actually %}
+                    <div class="col-sm-4 col-xs-12 d-table">
+                        <div class="item d-table-row">
+                            <div class="info d-table-cell">
+                                <div class="title">{{ item.type.title }}</div>
+                                <div class="period">{{ item.periodStart }}</div>
+                            </div>
+                            <div class="price d-table-cell">
+                                <span class="value">{{ item.value }}</span>
+                                <span class="currency">руб.</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+            <div class="container-fluid control">
+                <div class="row">
+                    <div class="col but">
+                        <a class="btn btn-success" href="{{ path('tariff_new') }}" role="button">Создать тариф</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="history">
+            <div class="d-none d-md-block">
+                <table class="desktop">
+                    <thead>
+                        <tr>
+                            <th>Период начала действия</th>
+                            <th>Наименование ресурса</th>
+                            <th>Стоимость, руб.</th>
+                            {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                                <th>Управление</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in history %}
+                            <tr>
+                                <td>{{ item.periodStart }}</td>
+                                <td>{{ item.type.title }}</td>
+                                <td>{{ item.value }}</td>
+                                {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                                    <td>
+                                        <a href="{{ path('tariff_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                            <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                        </a>
+                                        <a href="{{ path('tariff_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                                           onclick="return confirmDelete(this, 'Удалить тариф?');">
+                                            <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block d-md-none">
+                {% for item in history %}
+                <table class="mobile">
+                    <tr>
+                        <td>Период начала действия</td>
+                        <td>{{ item.periodStart }}</td>
+                    </tr>
+                    <tr>
+                        <td>Наименование услуги</td>
+                        <td>{{ item.type.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Стоимость, руб.</td>
+                        <td>{{ item.value }}</td>
+                    </tr>
+                    {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                        <tr>
+                            <td>Управление</td>
+                            <td>
+                                <a href="{{ path('tariff_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                </a>
+                                <a href="{{ path('tariff_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                                   onclick="return confirmDelete(this, 'Удалить тариф?');">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(history) }}
+        </div>
+    </div>
+{% endblock %}

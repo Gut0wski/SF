@@ -1,0 +1,31 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="login d-flex justify-content-center">
+        <div class="item">
+            <form action="{{ path('login') }}" method="post">
+                <div class="form-group">
+                    <label for="login">Логин:</label>
+                    <input type="text" name="_username" id="login" class="form-control" value="{{ login }}">
+                </div>
+                <div class="form-group">
+                    <label for="login">Пароль:</label>
+                    <input type="password" name="_password" id="password" class="form-control">
+                </div>
+                {% if error %}
+                    <div class="error">
+                        {{ error.messageKey | trans({}, 'messages') }}
+                    </div>
+                {% endif %}
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success">Войти на сайт</button>
+                </div>
+            </form>
+            <div class="options">
+                <div>Вы можете <a href="{{ path('register') }}">зарегистрироваться в системе</a></div>
+                <div>или воспользоваться <a href="{{ path('recover') }}">функцией восстановления пароля</a>.</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Блокировки пользователей{% endblock %}
+{% block content %}
+    <div class="blocks">
+        <div class="d-none d-md-block">
+            <table class="desktop">
+                <thead>
+                    <tr>
+                        <th>Дата начала</th>
+                        <th>Дата окончания</th>
+                        <th>Пользователь</th>
+                        <th>Кем блокирован</th>
+                        <th>Причина</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.dateStart | date("d.m.Y H:i") }}</td>
+                            <td>
+                                {{ item.dateEnd | date("d.m.Y H:i") }}
+                                {% if ((item.dateEnd | date("U") > curDate | date("U")) and (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN'))) %}
+                                    <a href="{{ path('unblock', { 'user' : item.id }) }}"
+                                       data-toggle="tooltip" title="Разблокировать"
+                                       onclick="return confirmDelete(this, 'Разблокировать пользователя?');">
+                                        <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/unblock.png">
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.user.username }} ({{ item.user.fio }})</td>
+                            <td>{{ item.moderator.username }} ({{ item.moderator.fio }})</td>
+                            <td>{{ item.reason }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-md-none">
+            {% for item in list %}
+                <table class="mobile">
+                    <tr>
+                        <td>Дата начала</td>
+                        <td>{{ item.dateStart | date("d.m.Y H:i") }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата окончания</td>
+                        <td>
+                            {{ item.dateEnd | date("d.m.Y H:i") }}
+                            {% if ((item.dateEnd | date("d.m.Y H:i") > curDate | date("d.m.Y H:i")) and (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN'))) %}
+                                <a href="{{ path('unblock', { 'user' : item.id }) }}"
+                                   data-toggle="tooltip" title="Разблокировать"
+                                   onclick="return confirmDelete(this, 'Разблокировать пользователя?');">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/unblock.png">
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Пользователь</td>
+                        <td>{{ item.user.username }} ({{ item.user.fio }})</td>
+                    </tr>
+                    <tr>
+                        <td>Кем блокирован</td>
+                        <td>{{ item.moderator.username }} ({{ item.moderator.fio }})</td>
+                    </tr>
+                    <tr>
+                        <td>Причина</td>
+                        <td>{{ item.reason }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

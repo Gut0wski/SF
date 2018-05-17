@@ -1,0 +1,46 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Новости{% endblock %}
+{% block content %}
+    <div class="news d-block">
+        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+            <div class="container-fluid control">
+                <div class="row">
+                    <div class="col but">
+                        <a class="btn btn-success" href="{{ path('news_new') }}" role="button">Создать новость</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% for item in list %}
+            <div class="item d-block">
+                <div class="create">{{ item.date | date("d.m.Y H:i") }}</div>
+                <div class="d-table" style="width:100%">
+                    <div class="d-table-row">
+                        <div class="d-table-cell title">
+                            {{ item.title }}
+                        </div>
+                        {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                            <div class="d-table-cell control">
+                                <a href="{{ path('news_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                </a>
+                                <a href="{{ path('news_delete', { 'id' : item.id }) }}" data-toggle="tooltip" title="Удалить"
+                                   onclick="return confirmDelete(this, 'Удалить новость?');">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="preview">
+                    {{ item.preview }}
+                    <a href="{{ path('news_view', { 'id' : item.id }) }}">Далее...</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(list) }}
+    </div>
+{% endblock %}

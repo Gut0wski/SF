@@ -1,0 +1,46 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class News
+ * @package AppBundle\Entity
+ * @ORM\Table(name="news")
+ * @ORM\Entity
+ */
+class News
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $preview;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $text;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

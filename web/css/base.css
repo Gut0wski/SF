@@ -1,0 +1,1144 @@
+/* Шрифты */
+@font-face {
+    font-family: Brokauz;
+    src: url(../fonts/Brokgauz_amp_amp_Efron-Regular.ttf);
+}
+@font-face {
+    font-family: Bliss;
+    src: url(../fonts/BlissPro-Bold.otf);
+}
+
+/**
+ * Мобильная адаптация
+ */
+@media (min-width: 576px) {
+    .wrapper {
+        margin: 10px auto;
+    }
+}
+
+@media (min-width: 768px) {
+    main.container .index div.edit,
+    main.container .news .control,
+    main.container .documents .control,
+    main.container .map div.edit,
+    main.container .profile div.but,
+    main.container .contacts div.edit,
+    main.container .measurements .control,
+    main.container .payments .control,
+    main.container .calculate .control {
+        margin-top: -15px !important;
+    }
+
+    main.container .write div.g-recaptcha {
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    header .caption .name {
+       padding: 10px;
+    }
+
+    header .menu .row {
+        -webkit-box-pack: end !important;
+        -ms-flex-pack: end !important;
+        justify-content: flex-end !important;
+    }
+
+    header .menu .row nav.navbar {
+        width: 100%;
+    }
+
+    header .menu .row nav.navbar ul.navbar-nav li a {
+        padding-left: 10px;
+    }
+
+    main.container .block div.lb {
+        margin-bottom: -7px;
+    }
+
+    main.container .tariffs .actually div.col {
+        border-spacing: 0 10px;
+    }
+
+    main.container .documents .control {
+        margin-top: 15px;
+    }
+
+    main.container .profiles table.mobile tr td:first-child {
+        width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 15px !important;
+    }
+
+    main.container form .tbl .rw div.label,
+    main.container form .tbl .rw div.value {
+        display: block !important;
+    }
+
+    main.container form .tbl .rw div.label label {
+        margin-bottom: 0 !important;
+    }
+
+    main.container .profile form .tbl .rw div.label {
+        width: 100% !important;
+    }
+
+    main.container .profile table.mobile td:nth-child(1) {
+        width: 130px !important;
+    }
+
+    main.container .messages table.mobile td:nth-child(1) {
+        width: 120px !important;
+    }
+
+    main.container .calculate table.mobile td:nth-child(1) {
+        width: 170px !important;
+    }
+
+    main.container .profiles table.mobile td:nth-child(1) {
+        width: 170px !important;
+    }
+
+    main.container .measurements table.mobile td:nth-child(1) {
+        width: 190px !important;
+    }
+
+    main.container .payments table.mobile td:nth-child(1) {
+        width: 190px !important;
+    }
+
+    main.container .profile form div.but {
+        margin-top: 0;
+        margin-bottom: -15px;
+    }
+}
+
+/**
+ * Общий макет
+ */
+html, body {
+    font-family: "Arial";
+    font-size: 10pt;
+}
+
+main {
+    background-color: #F2EEDA;
+}
+
+footer {
+    height: 30px;
+    padding: 8px;
+    text-align: right;
+    font-size: 8pt;
+    color: #F2EEDA;
+    background-color: #41680B;
+}
+
+a,
+a:hover {
+    color: #268dbe;
+    text-decoration: none;
+}
+
+/**
+ * Уведомления
+ */
+main.container div.alert {
+    margin-bottom: 30px;
+}
+
+main.container div.alert.alert-success {
+    background-color: #28a74552;
+}
+
+/**
+ * Хидер
+ */
+header  {
+    background-color: #F2EEDA;
+    padding: 0 !important;
+}
+
+header .caption {
+    padding: 0 15px;
+}
+
+header .caption .logo {
+    text-align: center;
+}
+
+header .caption .logo img {
+    height: auto;
+    width: 100px;
+}
+
+header .caption .name {
+    text-align: center;
+    display: block;
+    font-family: "Brokauz";
+    line-height: 1.5em;
+}
+
+header .caption .name div + div {
+    font-size: 17pt;
+    margin-top: 10px;
+}
+
+header .caption .name div.prof {
+    color: #9e0505;
+    font-size: 11pt;
+    font-family: Arial, "Times New Roman";
+    font-weight: bold;
+    border-top: 1px dotted rgba(77, 81, 84, 0.5);
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+
+/**
+* Главное меню
+*/
+header .menu {
+    background-color: #41680B;
+    font-family: "Bliss";
+    font-size: 16px;
+    width: 100%;
+}
+
+header .menu .row {
+    margin: 0;
+}
+
+header .menu .navbar {
+    padding: 0;
+}
+
+header .menu .navbar ul.navbar-nav li {
+    padding: 0 12px;
+}
+
+header .menu .navbar ul.navbar-nav li a {
+    color: #F2EEDA !important;
+}
+
+header .menu .navbar ul.navbar-nav li a:first-letter {
+    font-weight: bold;
+}
+
+header .menu .navbar ul.navbar-nav li:not(.active) a:hover,
+header .menu .navbar ul.navbar-nav li:not(.active) a:focus {
+    color: #D4D743 !important;
+}
+
+header .menu .navbar ul.navbar-nav li.active > a,
+header .menu .navbar ul.navbar-nav li.active > a:hover,
+header .menu .navbar ul.navbar-nav li.active > a:focus {
+    color: #274d0c !important;
+    background-color: #C1D932;
+}
+
+/**
+ * Субменю
+ */
+header .caption .navigate .btn-group-vertical {
+    width: 100%;
+    padding: 5px 0;
+}
+
+header .caption .navigate .btn-group-vertical a,
+header .caption .navigate .btn-group-vertical button {
+    background-color: #41680B;
+    color: #F2EEDA;
+    border-radius: 4px !important;
+    border: none;
+    height: 27px;
+    margin: 2px 0;
+    font-family: "Bliss";
+    font-size: 12pt;
+    padding-top: 1px;
+}
+
+header .caption .navigate .btn-group-vertical button img {
+    margin-top: -4px;
+    width: 15px;
+}
+
+header .caption .navigate .btn-group-vertical a.active {
+    background-color: #C1D932;
+    color: #274d0c !important;
+}
+
+header .caption .navigate .btn-group-vertical a:not(.active) a:hover,
+header .caption .navigate .btn-group-vertical a:not(.active) a:focus {
+    color: #274d0c !important;
+}
+
+header .caption .navigate .btn-group-vertical .dropdown-menu {
+    background-color: #41680B;
+    padding: 0;
+}
+
+header .caption .navigate .btn-group-vertical .dropdown-menu a {
+    color: #F2EEDA;
+    font-family: "Bliss";
+    font-size: 12pt;
+}
+
+header .caption .navigate .btn-group-vertical .dropdown-menu a.active {
+    color: #274d0c !important;
+    background-color: #C1D932;
+}
+
+header .caption .navigate .btn-group-vertical .dropdown-menu a:not(.active):hover,
+header .caption .navigate .btn-group-vertical .dropdown-menu a:not(.active):focus {
+    color: #274d0c !important;
+    background-color: #41680B;
+}
+
+/**
+ * Таблицы
+ */
+main.container table.desktop,
+main.container table.mobile {
+    width: 100%;
+    background-color: rgba(65, 104, 11, 0.15);
+}
+
+main.container table.desktop th {
+    text-align: center;
+    background-color: rgba(65, 104, 11, 0.21);
+}
+
+main.container table.desktop th,
+main.container table.desktop td,
+main.container table.mobile td {
+    border: 1px solid #5B8505;
+}
+
+main.container table.desktop th,
+main.container table.desktop td,
+main.container table.mobile td {
+    padding: 5px 10px;
+}
+
+main.container table.mobile {
+    margin-bottom: 15px;
+}
+
+main.container table.mobile td:nth-child(1) {
+    font-weight: bold;
+}
+
+/**
+ * Сетки
+ */
+main.container .tbl {
+    display: table;
+}
+
+main.container .tbl .rw {
+    display: table-row;
+}
+
+main.container .tbl .rw div.label,
+main.container .tbl .rw div.value {
+    display: table-cell;
+}
+
+/**
+ * Формы
+ */
+main.container form .but {
+    text-align: right;
+}
+
+main.container form .but button {
+    display: inline-block;
+}
+
+main.container form div.tbl {
+    width: 100%;
+    border-spacing: 0 5px;
+}
+
+main.container form .tbl .rw div.label {
+    font-weight: bold;
+    vertical-align: top;
+    padding-right: 5px;
+}
+
+main.container form .tbl .rw div.value input,
+main.container form .tbl .rw div.value select,
+main.container form .tbl .rw div.value textarea {
+    width: 100%;
+	padding: 0 5px;
+    height: 25px;
+}
+
+main.container form .tbl .rw div.value textarea {
+    height: 150px;
+    overflow-y: scroll;
+    resize: none;
+}
+
+main.container form .tbl .rw div.value ul {
+    padding-left: 0;
+    color: red;
+    margin-bottom: 0;
+}
+
+main.container form .tbl .rw div.value ul li {
+    list-style-type: none;
+}
+
+/**
+ * Пагинация
+ */
+main.container div.navigation {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    font-weight: bold;
+    text-align: right;
+}
+
+main.container div.navigation nav {
+    display: inline-block;
+}
+
+main.container div.navigation nav ul.pagination {
+	margin-bottom: 0;
+}
+
+main.container div.navigation nav ul.pagination li.page-item .page-link {
+    background-color: transparent !important;
+    border: none;
+    padding: 5px;
+}
+
+main.container div.navigation nav ul.pagination li.page-item.active .page-link {
+    color: #274d0c;
+}
+
+/**
+ * Авторизация, запрос на восстановление пароля, восстановление пароля, регистрация
+ */
+main.container .login div.item {
+    width: 370px;
+}
+
+main.container .login .item form label {
+    margin-bottom: 0;
+}
+
+main.container .login .item form div.error {
+    font-weight: bold;
+    color: red;
+}
+
+main.container .login .item div.options {
+    color: #999;
+    margin-top: 10px;
+}
+
+main.container .register div.item {
+    width: 500px;
+}
+
+main.container .register .item form .tbl .rw div.label {
+    width: 120px;
+}
+
+main.container .recover div.item {
+    width: 300px;
+}
+
+main.container .recover .item div.info {
+    margin-bottom: 10px;
+}
+
+main.container .recover .item form .tbl .rw div.label {
+    width: 50px;
+}
+
+main.container .password div.item {
+    width: 400px;
+}
+
+main.container .password .item form .tbl .rw div.label {
+    width: 110px;
+}
+
+/**
+ * Главная страница
+ */
+main.container .index div.edit {
+    text-align: right;
+}
+
+/**
+ * Новости
+ */
+main.container .news .control {
+    padding-right: 0;
+    padding-bottom: 7px;
+    text-align: right;
+}
+
+main.container .news .item:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+main.container .news .item .create {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+}
+
+main.container .news .item .create:before,
+main.container .news .item .create:after {
+    width: 100%;
+    height: 2px;
+    border: solid #F2EEDA;
+    border-width: 0 10px;
+    box-sizing: border-box;
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    background: #5B8505;
+}
+main.container .news .item .create:before {
+    margin-left: -100%;
+}
+
+main.container .news .item .create:after {
+    margin-right: -100%;
+}
+
+main.container .news .item .control {
+    text-align: right;
+}
+
+main.container .news .item .title {
+    font-weight: bold;
+    font-size: 11pt;
+    text-transform: uppercase;
+    margin: 15px 0;
+}
+
+main.container .news .item  .preview a {
+    font-style: italic;
+    margin-left: 10px;
+}
+
+main.container .news.full div.title {
+    text-transform: uppercase;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/**
+ * Документы
+ */
+main.container .documents {
+    border-spacing: 0 15px;
+}
+
+main.container .documents div.control {
+    padding-right: 0;
+    text-align: right;
+}
+
+main.container .documents .d-table {
+    width: 100%;
+}
+
+main.container .documents .item div.pic {
+    border: 1px solid #ababab;
+    border-radius: 7px;
+    padding: 3px 15px;
+    width: 60px;
+}
+
+main.container .documents .item div.link {
+    width: 65px;
+}
+
+main.container .documents .item .link div.pic:hover {
+    box-shadow: 0 1px 3px grey;-webkit-box-shadow:0 1px 3px grey;-moz-box-shadow:0 1px 3px grey;
+}
+
+main.container .documents .item div.info {
+    padding-left: 15px;
+    vertical-align: top;
+}
+
+main.container .documents .item div.info div.create {
+    font-weight: bold;
+}
+
+main.container .documents .item div.control {
+    text-align: right;
+}
+
+/**
+ * Тарифы
+ */
+main.container .tariffs .actually .item .info {
+    vertical-align: top;
+    width: 60px;
+}
+
+main.container .tariffs .actually .item .price {
+    vertical-align: middle;
+    text-align: left;
+    padding-left: 10px;
+}
+
+main.container .tariffs .actually .item .info div.title {
+    font-weight: bold;
+    font-size: 13pt;
+    text-transform: capitalize;
+}
+
+main.container .tariffs .actually .item .price span.value {
+    font-size: 17pt;
+}
+
+main.container .tariffs div.control {
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 0;
+}
+
+main.container .tariffs .history {
+    padding-top: 15px;
+}
+
+main.container .tariffs .history table.desktop td:nth-child(4) {
+    width: 100px;
+    text-align: center;
+}
+
+main.container .tariff form div.label {
+    width: 320px;
+}
+
+/**
+  * Карта
+  */
+main.container .map div.edit {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+main.container .map iframe {
+    border: 0;
+    height: 450px;
+    width: 100%;
+}
+
+main.container .map form div.label {
+    width: 80px;
+}
+
+/**
+ * Профиль
+ */
+main.container .profile form .but {
+    margin-top: -15px;
+	margin-bottom: -25px;
+}
+
+main.container .profile form div.title {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 30px 0 5px 40px;
+    overflow: hidden;
+}
+
+main.container .profile form div.title:before,
+main.container .profile form div.title:after {
+    width: 100%;
+    height: 2px;
+    border: solid #F2EEDA;
+    border-width: 0 10px;
+    box-sizing: border-box;
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    background: #5B8505;
+}
+
+main.container .profile form div.title:before {
+    margin-left: -100%;
+}
+
+main.container .profile form div.title:after {
+    margin-right: -100%;
+}
+
+main.container .profile form .tbl .rw div.label {
+    width: 240px;
+}
+
+main.container .profile form table.desktop td:nth-child(1),
+main.container .profile form table.desktop td:nth-child(2) {
+    width: 130px;
+}
+
+/**
+ * Сообщения
+ */
+main.container .messages nav {
+    margin-bottom: 15px;
+}
+
+main.container .messages nav a {
+    padding: 5px 12px;
+    border: 1px solid #ababab;
+    border-radius: 7px;
+}
+
+main.container .messages nav a.active {
+    font-weight: bold;
+    border-color: #41680B;
+}
+
+main.container .messages table.desktop td:nth-child(1) {
+    width: 130px;
+}
+
+main.container .messages table.desktop tr.new,
+main.container .messages table.mobile td.new {
+    font-weight: bold;
+}
+
+main.container .messages table.desktop tr.current,
+main.container .messages table.mobile td.current {
+    background-color: #cac6b2;
+}
+
+main.container .messages table.desktop tbody tr:hover,
+main.container .messages table.mobile:hover {
+    cursor: pointer;
+    background-color: #cac6b2;
+}
+
+main.container .messages textarea.text {
+    margin-top: 20px;
+    padding: 10px 12px;
+    width: 100%;
+    border: 1px solid #ababab;
+    color: #2931a2;
+    font-style: italic;
+    line-height: 1.25;
+    background: url('../img/paper.jpg');
+    overflow-y:scroll;
+    resize: none;
+}
+
+main.container .messages .create form .but {
+    margin-top: -5px;
+}
+
+main.container .messages .create form .tbl .rw div.label {
+    width: 10%;
+}
+
+/**
+ * Ведомость
+ */
+main.container .calculate table.desktop td:nth-child(1) {
+    width: 80px;
+}
+
+main.container .calculate table.desktop td:nth-child(3) {
+    width: 70px;
+}
+
+main.container .calculate table.desktop td:nth-child(4) {
+    width: 130px;
+}
+
+/**
+ * Контакты правления
+ */
+main.container .contacts div.edit {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+main.container .contacts div.tbl {
+    border-spacing: 0 10px;
+}
+
+main.container .contacts .rw div.label {
+    font-weight: bold;
+    width: 120px;
+}
+
+/**
+ * Форма обратной связи
+ */
+main.container .write form .tbl .rw div.label {
+    width: 100px;
+}
+
+/**
+ * Обсуждения
+ */
+main.container .discussions div.control {
+    padding: 0;
+}
+
+main.container .discussions .control div.links {
+    font-weight: bold;
+    font-size: 12pt;
+    margin-bottom: 10px;
+}
+
+main.container .discussions div.block {
+    font-weight: bold;
+    color: #9e0505;
+    margin-bottom: 10px;
+}
+
+main.container .discussions .control div.but {
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+main.container .discussions div.item {
+    margin-bottom: 20px;
+    border: 1px solid #5B8505;
+    border-radius: 4px;
+}
+
+main.container .discussions .item div.caption {
+    font-weight: bold;
+    background-color: rgba(65, 104, 11, 0.65);
+    padding: 5px;
+    border-bottom: 1px solid #5B8505;
+    display: table;
+    width: 100%;
+}
+
+main.container .discussions .item .caption .rw {
+    display: table-row;
+}
+
+main.container .discussions .item .caption .rw .title {
+    display: table-cell;
+    color: #F2EEDA;
+}
+
+main.container .discussions .item .caption .rw .control {
+    display: table-cell;
+    text-align: right;
+}
+
+main.container .discussions .item .caption .rw .title a {
+    color: #F2EEDA;
+}
+
+main.container .discussions .item div.description {
+    padding: 5px;
+    background-color: rgba(65, 104, 11, 0.15);
+}
+
+main.container .discussions .item .description span.title {
+    font-weight: bold;
+}
+
+main.container .discussions .item .description span.value {
+    font-style: italic;
+}
+
+main.container .discussions .item .description div.message:not(:last-child) {
+    border-bottom: 1px solid #5B8505;
+}
+
+main.container .discussions .item .description div.message {
+    margin: 0 -5px;
+    padding: 10px;
+}
+
+main.container .discussions .item .description div.message.lk {
+    background-color: rgba(65, 104, 11, 0.42);
+}
+
+main.container .discussions .item .description .message div.info {
+    width: 100%;
+}
+
+main.container .discussions .item .description .message .info div.left {
+    vertical-align: bottom;
+}
+
+main.container .discussions .item .description .message .info .left div.author {
+    font-weight: bold;
+}
+
+main.container .discussions .item .description .message .info div.right {
+    text-align: right;
+}
+
+main.container .discussions .item .description .message .info .right div.date {
+    color: #5e5e5e;
+}
+
+main.container .discussions .item .description .message .info .right .control a {
+    margin: 0 1px;
+}
+
+main.container .discussions .item .description .message .info .right .control a.positive {
+    color: green;
+    font-weight: bold;
+}
+
+main.container .discussions .item .description .message .info .right .control a.negative {
+    color: red;
+    font-weight: bold;
+}
+
+main.container .discussions .item .description .message .info .right .control img.lk:hover {
+    cursor: pointer;
+}
+
+main.container .discussions .item .description .message div.quote {
+    border-radius: 4px;
+    background-color: rgba(168, 168, 168, 0.5);
+    padding: 5px;
+    font-style: italic;
+    margin: 5px 0 5px 20px;
+}
+
+main.container .discussions .item .description .message .quote div.author {
+    font-weight: bold;
+}
+
+main.container .discussions div.new-message {
+    padding-top: 20px;
+}
+
+main.container .discussions div.new-message form span#descript {
+    font-weight: bold;
+    color: red;
+    text-transform: uppercase;
+    padding-top: 12px;
+}
+
+main.container .discussions div.navigation {
+    margin-top: -12px;
+}
+
+main.container .section form .tbl .rw div.label,
+main.container .subject form .tbl .rw div.label {
+    width: 100px;
+}
+
+main.container .subject .tbl .rw .value.new select {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/**
+ * Жалобы
+ */
+main.container .complaints table.desktop td:nth-child(1) {
+    width: 130px;
+}
+
+main.container .complaint form .tbl .rw div.label {
+    width: 140px;
+}
+
+/**
+ * Блокировки
+ */
+main.container .blocks table.desktop td:nth-child(1) {
+    width: 130px;
+}
+
+main.container .blocks table.desktop td:nth-child(2) {
+    width: 150px;
+}
+
+main.container .blocks table.desktop td a {
+    padding-left: 5px;
+}
+
+main.container .blocks table.desktop td a img {
+    margin-top: -5px;
+}
+
+main.container .block div.but {
+    margin-bottom: 10px;
+}
+
+main.container .block form .tbl .rw div.label {
+    width: 140px;
+}
+
+main.container .block div.lb {
+    width: 140px;
+    font-weight: bold;
+}
+
+main.container .block .dt div div {
+   display: inline;
+}
+
+main.container .block .dt div > div {
+    margin-right: 10px;
+}
+
+/**
+ * Профили пользователей
+ */
+main.container .profiles table.desktop tr td:nth-child(1) {
+    padding: 0;
+    width: 50px;
+    text-align: center;
+}
+
+main.container .profiles table.desktop tr.header td {
+    border-bottom: none;
+}
+
+main.container .profiles table.desktop tr.header td button img {
+    width: 20px;
+}
+
+main.container .profiles table.desktop tr.span td:nth-child(1) {
+    border-top: none;
+}
+
+main.container .profiles table.desktop tr.span td {
+    padding: 0;
+    border-top: none;
+}
+
+main.container .profiles table.desktop tr.span td .detail div.title {
+    font-weight: bold;
+}
+
+main.container .profiles table.desktop tr.span td .detail table {
+    width: 100%;
+}
+
+main.container .profiles table.desktop tr.span td .detail table thead tr {
+    font-style: italic;
+}
+
+main.container .profiles table.desktop tr.span td .detail table thead tr th,
+main.container .profiles table.desktop tr.span td .detail table tbody tr td {
+    padding: 2px;
+    font-size: 9pt;
+}
+
+main.container .profiles table.desktop tr.span td .detail ul li a.admin,
+main.container .profiles table.mobile tr td ul a.admin {
+    color: red;
+}
+
+main.container .profiles table.desktop tr.span td .detail ul li a.moder,
+main.container .profiles table.mobile tr td ul a.moder {
+    color: orange;
+}
+
+main.container .profiles table.desktop tr.span td .detail ul li a.user,
+main.container .profiles table.mobile tr td ul a.user {
+    color: green;
+}
+
+main.container .profiles table.mobile tr td ul {
+    margin-left: -20px;
+}
+
+/**
+ * Расчетные ведомости выбранного пользователя
+ */
+main.container .calculate div.control {
+    padding-right: 0;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+/**
+ * Просмотр контрольных показаний
+ */
+main.container .measurements div.control {
+    padding-right: 0;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+main.container .measurements table.desktop td:nth-child(4) {
+    width: 100px;
+    text-align: center;
+}
+
+/**
+ * Внесение контрольного показния
+ */
+main.container .measurement .tbl .rw div.label {
+    width: 100px;
+}
+
+main.container .measurement div.lb {
+    width: 100px;
+    font-weight: bold;
+}
+
+main.container .measurement .dt div div {
+    display: inline;
+}
+
+main.container .measurement .dt div > div {
+    margin-right: 10px;
+}
+
+/**
+ * Просмотр платежей
+ */
+main.container .payments div.control {
+    padding-right: 0;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+main.container .payments table.desktop td:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+
+/**
+ * Внесение нового платежа
+ */
+
+main.container .payment .tbl .rw div.label {
+    width: 110px;
+}
+
+main.container .payment div.lb {
+    width: 110px;
+    font-weight: bold;
+}
+
+main.container .payment .dt div div {
+    display: inline;
+}
+
+main.container .payment .dt div > div {
+    margin-right: 10px;
+}

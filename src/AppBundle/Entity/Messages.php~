@@ -1,0 +1,56 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Messages
+ * @package AppBundle\Entity
+ * @ORM\Table(name="messages")
+ * @ORM\Entity
+ */
+class Messages
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $recipient;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sender;
+
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
+    private $subject;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $text;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $read;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

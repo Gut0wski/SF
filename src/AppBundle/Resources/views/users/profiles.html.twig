@@ -1,0 +1,287 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Профили пользователей{% endblock %}
+{% block content %}
+    <div class="profiles">
+        <div class="d-none d-md-block">
+            <table class="desktop">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Логин</th>
+                        <th>Ф.И.О.</th>
+                        <th>Номер участка</th>
+                        <th>Роль</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr class="header">
+                            <td>
+                                <div class="header" id="heading{{ item.id }}">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ item.id }}"
+                                            aria-expanded="true" aria-controls="collapse{{ item.id }}"
+                                            onclick="viewCollapseIcon({{ item.id }})">
+                                        <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/plus1.png" id="i{{ item.id }}">
+                                    </button>
+                                </div>
+                            </td>
+                            <td>{{ item.username }}</td>
+                            <td>{{ item.fio }}</td>
+                            <td>{{ item.sector }}</td>
+                            <td>{{ item.fullRole }}</td>
+                        </tr>
+                        <tr class="span">
+                            <td></td>
+                            <td colspan="4">
+                                <div class="detail">
+                                    <div id="collapse{{ item.id }}" class="collapse" aria-labelledby="heading{{ item.id }}"
+                                         data-parent="#accordion" style="padding: 0 5px 5px 5px">
+                                        <div class="title">Дополнительная информация:</div>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <th>Телефон</th>
+                                                    <th>Адрес фактического проживания</th>
+                                                    <th>Другие контактные данные</th>
+                                                    <th>Дата регистрации</th>
+                                                    <th>Дата последней активности</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ item.email }}</td>
+                                                    <td>{{ item.telephone }}</td>
+                                                    <td>{{ item.address }}</td>
+                                                    <td>{{ item.otherContacts }}</td>
+                                                    <td>{{ item.dateRegister | date("d.m.Y H:i") }}</td>
+                                                    <td>
+                                                        {% if item.dateActive is not empty %}
+                                                            {{ item.dateActive | date("d.m.Y H:i") }}
+                                                        {%  endif %}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="title" style="margin-top:7px;">Управление:</div>
+                                        <ul style="margin-bottom:0;">
+                                            <li>
+                                                Назначить роль:
+                                                <ul>
+                                                    {% if (item.role == 'ROLE_USER') %}
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                                Модератор обсуждений
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                                Администратор
+                                                            </a>
+                                                        </li>
+                                                    {% elseif (item.role == 'ROLE_ADMIN') %}
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                                Пользователь сайта
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                                Администратор
+                                                            </a>
+                                                        </li>
+                                                    {% elseif (item.role == 'ROLE_SUPER_ADMIN') %}
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                                Пользователь сайта
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                                Модератор обсуждений
+                                                            </a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                                Пользователь сайта
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                                Модератор обсуждений
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                                Администратор
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                Просмотр и редактирование:
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ path('measurements', { 'user' : item.id }) }}">Контрольных показаний</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('payments', { 'user' : item.id }) }}">Платежей</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('calculate_user', { 'user' : item.id }) }}">Расчетная ведомость</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('user_delete', { 'id' : item.id }) }}" onclick="return confirmDelete(this, 'Удалить пользователя?');">
+                                                    Удалить пользователя
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-md-none">
+            {% for item in list %}
+                <table class="mobile">
+                    <tr>
+                        <td>Логин</td>
+                        <td>{{ item.username }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ф.И.О.</td>
+                        <td>{{ item.fio }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ item.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Телефон</td>
+                        <td>{{ item.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <td>Номер участка</td>
+                        <td>{{ item.sector }}</td>
+                    </tr>
+                    <tr>
+                        <td>Адрес фактического проживания</td>
+                        <td>{{ item.address }}</td>
+                    </tr>
+                    <tr>
+                        <td>Другие контактные данные</td>
+                        <td>{{ item.otherContacts }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата регистрации</td>
+                        <td>{{ item.dateRegister | date("d.m.Y H:i") }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата последней активности</td>
+                        <td>
+                            {% if item.dateActive is not empty %}
+                                {{ item.dateActive | date("d.m.Y H:i") }}
+                            {%  endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Роль</td>
+                        <td>{{ item.fullRole }}</td>
+                    </tr>
+                    <tr>
+                        <td>Управление</td>
+                        <td>
+                            <ul style="margin-bottom:0;">
+                                <li>
+                                    Назначить роль:
+                                    <ul>
+                                        {% if (item.role == 'ROLE_USER') %}
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                    Модератор обсуждений
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                    Администратор
+                                                </a>
+                                            </li>
+                                        {% elseif (item.role == 'ROLE_ADMIN') %}
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                    Пользователь сайта
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                    Администратор
+                                                </a>
+                                            </li>
+                                        {% elseif (item.role == 'ROLE_SUPER_ADMIN') %}
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                    Пользователь сайта
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                    Модератор обсуждений
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_USER' }) }}" class="user">
+                                                    Пользователь сайта
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_ADMIN' }) }}" class="moder">
+                                                    Модератор обсуждений
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('set_role', { 'user' : item.id, 'role' : 'ROLE_SUPER_ADMIN' }) }}" class="admin">
+                                                    Администратор
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    Просмотр и редактирование:
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('measurements', { 'user' : item.id }) }}">Контрольных показаний</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('payments', { 'user' : item.id }) }}">Платежей</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{{ path('calculate_user', { 'user' : item.id }) }}">Расчетная ведомость</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user_delete', { 'id' : item.id }) }}" onclick="return confirmDelete(this, 'Удалить пользователя?');">
+                                        Удалить пользователя
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

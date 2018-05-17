@@ -1,0 +1,71 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Темы{% endblock %}
+{% block content %}
+    <div class="discussions">
+        <div class="container-fluid control">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 links">
+                    <a href="{{ path('sections') }}">Разделы</a> \ {{ link }}
+                </div>
+                <div class="col-sm-6 col-xs-12 but">
+                    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                        <a class="btn btn-success" href="{{ path('subject_new', { 'section' : section }) }}" role="button">Создать тему</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% for item in list %}
+            {% if (is_granted('IS_AUTHENTICATED_FULLY') or item.hidden == 0) %}
+                <div class="item">
+                    <div class="caption">
+                        <div class="rw">
+                            <div class="title">
+                                <a href="{{ path('messages', { 'subject' : item.id }) }}">{{ item.title }}</a>
+                            </div>
+                            {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                                <div class="control">
+                                    <a href="{{ path('subject_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                        <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                    </a>
+                                    <a href="{{ path('subject_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                                       onclick="return confirmDelete(this, 'Удалить тему?');">
+                                        <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="description">
+                        <div class="count">
+                            <span class="title">
+                                Сообщений:
+                            </span>
+                            <span class="value">
+                                {% if details[item.id]['count'] > 0 %}
+                                    {{ details[item.id]['count'] }}
+                                {% else %}
+                                    нет
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% if details[item.id]['author'] is not empty %}
+                            <div class="last">
+                                <span class="title">
+                                    Последнее:
+                                </span>
+                                <span class="value">
+                                    {{ details[item.id]['author'] }}
+                                    ({{ details[item.id]['create'] | date("d.m.Y H:i") }})
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

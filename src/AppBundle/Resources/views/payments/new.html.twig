@@ -1,0 +1,35 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Создание платежа{% endblock %}
+{% block content %}
+    <div class="payment">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ back }}" role="button">Отмена</a>
+            </div>
+            <div class="d-sm-flex flex-row">
+                <div class="lb">
+                    {{ form_label(form.date) }}
+                </div>
+                <div class="dt">
+                    {{ form_widget(form.date) }}
+                </div>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.type) }}</div>
+                    <div class="value">{{ form_widget(form.type) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.sum) }}</div>
+                    <div class="value">{{ form_widget(form.sum) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.place) }}</div>
+                    <div class="value">{{ form_widget(form.place) }}</div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

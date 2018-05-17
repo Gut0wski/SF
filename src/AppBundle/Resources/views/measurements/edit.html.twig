@@ -1,0 +1,31 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Редатирование контрольного показания{% endblock %}
+{% block content %}
+    <div class="measurement">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ back }}" role="button">Отмена</a>
+            </div>
+            <div class="d-sm-flex flex-row">
+                <div class="lb">
+                    {{ form_label(form.date) }}
+                </div>
+                <div class="dt">
+                    {{ form_widget(form.date) }}
+                </div>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.type) }}</div>
+                    <div class="value">{{ form_widget(form.type) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.value) }}</div>
+                    <div class="value">{{ form_widget(form.value) }}</div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

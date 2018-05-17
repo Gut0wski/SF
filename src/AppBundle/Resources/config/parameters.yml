@@ -1,0 +1,4 @@
+parameters:
+    mail_admin: fny2004@mail.ru
+    limit_blocks: 5
+    limit_rows: 10

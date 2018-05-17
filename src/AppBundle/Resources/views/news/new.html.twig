@@ -1,0 +1,27 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Создание новости{% endblock %}
+{% block content %}
+    <div class="news">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+                <a class="btn btn-success" href="{{ back }}" role="button">Отмена</a>
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.title) }}</div>
+                    <div class="value">{{ form_widget(form.title) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.preview) }}</div>
+                    <div class="value">{{ form_widget(form.preview) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.text) }}</div>
+                    <div class="value">{{ form_widget(form.text) }}</div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

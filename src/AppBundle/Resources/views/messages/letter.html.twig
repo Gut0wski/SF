@@ -1,0 +1,33 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Написать{% endblock %}
+{% block content %}
+    <div class="messages">
+        <nav>
+            <a href="{{ path('inbox') }}">Входящие</a>
+            <a href="{{ path('outbox') }}">Исходящие</a>
+            <a href="{{ path('letter') }}" class="active">Написать</a>
+        </nav>
+        <div class="create">
+            {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+            </div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.recipient) }}</div>
+                    <div class="value">{{ form_widget(form.recipient) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.subject) }}</div>
+                    <div class="value">{{ form_widget(form.subject) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.text) }}</div>
+                    <div class="value">{{ form_widget(form.text) }}</div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

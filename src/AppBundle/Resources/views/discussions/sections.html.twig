@@ -1,0 +1,46 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Обсуждения{% endblock %}
+{% block content %}
+    <div class="discussions">
+        <div class="container-fluid control">
+            <div class="row">
+                <div class="col but">
+                    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                        <a class="btn btn-success" href="{{ path('section_new') }}" role="button">Создать раздел</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% for item in list %}
+            {% if (is_granted('IS_AUTHENTICATED_FULLY') or item.hidden == 0) %}
+            <div class="item">
+                <div class="caption">
+                    <div class="rw">
+                        <div class="title">
+                            <a href="{{ path('subjects', { 'section' : item.id }) }}">{{ item.title }}</a>
+                        </div>
+                        {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                            <div class="control">
+                                <a href="{{ path('section_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                </a>
+                                <a href="{{ path('section_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                                   onclick="return confirmDelete(this, 'Удалить раздел?');">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="description">
+                    {{ item.text }}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

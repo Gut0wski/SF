@@ -1,0 +1,40 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+    <div class="register d-flex justify-content-center">
+        <div class="item">
+            {{ form_start(form) }}
+                <div class="tbl">
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.username) }}</div>
+                        <div class="value">{{ form_widget(form.username) }}</div>
+                    </div>
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.email) }}</div>
+                        <div class="value">{{ form_widget(form.email) }}</div>
+                    </div>
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.telephone) }}</div>
+                        <div class="value">{{ form_widget(form.telephone) }}</div>
+                    </div>
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.fio) }}</div>
+                        <div class="value">{{ form_widget(form.fio) }}</div>
+                    </div>
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.sector) }}</div>
+                        <div class="value">{{ form_widget(form.sector) }}</div>
+                    </div>
+                    <div class="rw">
+                        <div class="label">{{ form_label(form.password) }}</div>
+                        <div class="value">{{ form_widget(form.password) }}</div>
+                    </div>
+                </div>
+                <div class="but">
+                    {{ form_widget(form.submit) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

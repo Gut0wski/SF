@@ -1,0 +1,110 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Профиль{% endblock %}
+{% block content %}
+    <div class="profile">
+        {{ form_start(form) }}
+            <div class="but">
+                {{ form_widget(form.submit) }}
+            </div>
+            <div class="title">Общая информация</div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">Логин</div>
+                    <div class="value">{{ app.user.username }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">Дата регистрации</div>
+                    <div class="value">{{ app.user.dateRegister | date("d.m.Y H:i") }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">Роль на сайте</div>
+                    <div class="value">{{ app.user.fullRole }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.fio) }}</div>
+                    <div class="value">{{ form_widget(form.fio) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.password) }}</div>
+                    <div class="value">{{ form_widget(form.password) }}</div>
+                </div>
+            </div>
+            <div class="title">Контактные данные</div>
+            <div class="tbl">
+                <div class="rw">
+                    <div class="label">{{ form_label(form.telephone) }}</div>
+                    <div class="value">{{ form_widget(form.telephone) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.email) }}</div>
+                    <div class="value">{{ form_widget(form.email) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.sector) }}</div>
+                    <div class="value">{{ form_widget(form.sector) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.address) }}</div>
+                    <div class="value">{{ form_widget(form.address) }}</div>
+                </div>
+                <div class="rw">
+                    <div class="label">{{ form_label(form.other_contacts) }}</div>
+                    <div class="value">{{ form_widget(form.other_contacts) }}</div>
+                </div>
+            </div>
+            <div class="title">Блокировки обсуждений</div>
+            {% if blocks is not empty %}
+                <div class="d-none d-md-block">
+                    <table class="desktop">
+                        <thead>
+                            <tr>
+                                <th>Начало блокировки</th>
+                                <th>Окончание блокировки</th>
+                                <th>Модератор</th>
+                                <th>Причина</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in blocks %}
+                                <tr>
+                                    <td>{{ item.date_start | date("d.m.Y H:i") }}</td>
+                                    <td>{{ item.date_end | date("d.m.Y H:i") }}</td>
+                                    <td>{{ item.username }}</td>
+                                    <td>{{ item.reason }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-block d-md-none">
+                    {% for item in blocks %}
+                        <table class="mobile">
+                            <tr>
+                                <td>Начало блокировки</td>
+                                <td>{{ item.date_start | date("d.m.Y H:i") }}</td>
+                            </tr>
+                            <tr>
+                                <td>Окончание блокировки</td>
+                                <td>{{ item.date_end | date("d.m.Y H:i") }}</td>
+                            </tr>
+                            <tr>
+                                <td>Модератор</td>
+                                <td>{{ item.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>Причина</td>
+                                <td>{{ item.reason }}</td>
+                            </tr>
+                        </table>
+                    {% endfor %}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(blocks) }}
+                </div>
+            {% else %}
+                Отсутствуют
+            {% endif %}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

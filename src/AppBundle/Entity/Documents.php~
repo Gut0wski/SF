@@ -1,0 +1,41 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Documents
+ * @package AppBundle\Entity
+ * @ORM\Table(name="documents")
+ * @ORM\Entity
+ */
+class Documents
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=300)
+     */
+    private $file;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

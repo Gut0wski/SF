@@ -1,0 +1,12 @@
+services:
+    app.security.activate:
+            class: AppBundle\Extend\Security\Activate
+            arguments: ['@mailer', '@twig', '@doctrine.orm.entity_manager', '@router', '%mailer_user%']
+
+    app.security.recover:
+        class: AppBundle\Extend\Security\RecoverPassword
+        arguments: ['@mailer', '@twig', '@doctrine.orm.entity_manager', '@router', '%mailer_user%']
+
+    app.security.write:
+        class: AppBundle\Extend\Security\WriteLetter
+        arguments: ['@mailer', '@twig', '@doctrine.orm.entity_manager', '@router', '%mailer_user%', '%mail_admin%']

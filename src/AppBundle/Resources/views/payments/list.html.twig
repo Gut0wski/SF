@@ -1,0 +1,84 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}Платежи{% endblock %}
+{% block content %}
+    <div class="payments">
+        <div class="container-fluid control">
+            <div class="row">
+                <div class="col but">
+                    <a class="btn btn-success" href="{{ path('payment_new', { 'user' : user }) }}" role="button">Создать платеж</a>
+                    <a class="btn btn-success" href="{{ path('profiles', { 'page' : back }) }}" role="button">Назад</a>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-block">
+            <table class="desktop">
+                <thead>
+                    <tr>
+                        <th>Дата платежа</th>
+                        <th>Наименование ресурса</th>
+                        <th>Сумма, руб.</th>
+                        <th>Место платежа</th>
+                        <th>Управление</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.date | date("d.m.Y H:i") }}</td>
+                            <td>{{ item.type.title }}</td>
+                            <td>{{ item.sum }}</td>
+                            <td>{{ item.place }}</td>
+                            <td>
+                                <a href="{{ path('payment_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                                </a>
+                                <a href="{{ path('payment_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                                   onclick="return confirm('Удалить платеж?')">
+                                    <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-block d-md-none">
+            {% for item in list %}
+                <table class="mobile">
+                    <tr>
+                        <td>Дата платежа</td>
+                        <td>{{ item.date | date("d.m.Y H:i") }}</td>
+                    </tr>
+                    <tr>
+                        <td>Наименование ресурса</td>
+                        <td>{{ item.type.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Сумма, руб.</td>
+                        <td>{{ item.sum }}</td>
+                    </tr>
+                    <tr>
+                        <td>Место платежа</td>
+                        <td>{{ item.place }}</td>
+                    </tr>
+                    <tr>
+                        <td>Управление</td>
+                        <td>
+                            <a href="{{ path('payment_edit', { 'id' : item.id }) }}" data-toggle="tooltip" title="Редактировать">
+                                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/edit.png">
+                            </a>
+                            <a href="{{ path('payment_delete', { 'id' : item.id }) }}"  data-toggle="tooltip" title="Удалить"
+                               onclick="return confirm('Удалить платеж?')">
+                                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/delete.png">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(list) }}
+        </div>
+    </div>
+{% endblock %}

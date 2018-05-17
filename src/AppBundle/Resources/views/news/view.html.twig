@@ -1,0 +1,9 @@
+{% extends '@App/client.html.twig' %}
+
+{% block title %}{{ item.title }}{% endblock %}
+{% block content %}
+    <div class="news full d-block">
+        <div class="title">{{ item.title }}</div>
+        <div class="text">{{ item.text | raw }}</div>
+    </div>
+{% endblock %}

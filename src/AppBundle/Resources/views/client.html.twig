@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block body %}
+    {% set route = app.request.attributes.get('_route') %}
+    <header class="container">
+        <div class="caption row align-items-center">
+            <div class="logo col-md-2 col-sm-3 d-none d-sm-block">
+                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/logo.png">
+            </div>
+            <div class="name col">
+                <div>
+                    Официальный сайт
+                    <br>
+                    Садового Некоммерческого
+                    <br class="d-none d-sm-block d-md-block d-lg-none">
+                    Товарищества г. Севастополь
+                </div>
+                <div>«СТЕПНОЙ ФАЗАН»</div>
+                {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                    <div class="prof">Профиль администратора</div>
+                {% endif %}
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <div class="prof">Профиль модератора</div>
+                {% endif %}
+            </div>
+            <div class="navigate col-lg-3 col-md-4 col-sm-12">
+                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/user.png" class="userid" id="{{ app.user.id }}"> {{ app.user.username }}
+                            {% else %}
+                                Личный кабинет
+                            {% endif %}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a class="dropdown-item {% if (route == 'profile') %} active {% endif %}" href="{{ path('profile') }}">Мой профиль</a>
+                                <a class="dropdown-item {% if (route == 'inbox' or route == 'outbox' or route == 'letter') %} active {% endif %}" href="{{ path('inbox') }}">Сообщения</a>
+                                <a class="dropdown-item {% if (route == 'calculate') %} active {% endif %}" href="{{ path('calculate') }}">Расчетная ведомость</a>
+                                <a class="dropdown-item" href="{{ path('logout') }}">Выход</a>
+                            {% else %}
+                                <a class="dropdown-item {% if (route == 'login') %} active {% endif %}" href="{{ path('login') }}">Вход</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if (is_granted('ROLE_SUPER_ADMIN')) %}
+                        <a class="btn btn-secondary {% if (route == 'profiles') %} active {% endif %}"
+                           href="{{ path('profiles') }}" role="button">Пользователи сайта</a>
+                    {% endif %}
+                    <a class="btn btn-secondary {% if (route == 'contacts') %} active {% endif %}"
+                       href="{{ path('contacts') }}" role="button">Контакты правления</a>
+                    <a class="btn btn-secondary {% if (route == 'write') %} active {% endif %}"
+                       href="{{ path('write') }}" role="button">Напишите нам</a>
+                    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Обсуждения
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                <a class="dropdown-item {% if (route == 'sections') %} active {% endif %}" href="{{ path('sections') }}">Разделы</a>
+                                <a class="dropdown-item {% if (route == 'complaints') %} active {% endif %}" href="{{ path('complaints') }}">Жалобы</a>
+                                <a class="dropdown-item {% if (route == 'blocks') %} active {% endif %}" href="{{ path('blocks') }}">Блокировки</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a class="btn btn-secondary {% if (route == 'sections') %} active {% endif %}"
+                           href="{{ path('sections') }}" role="button">Обсуждения</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="image">
+            <img src="{{ app.request.getSchemeAndHttpHost() }}/web/img/header.png" class="img-fluid">
+        </div>
+        <div class="menu">
+            <div class="row justify-content-center">
+                <nav class="navbar navbar-expand-sm navbar-light">
+                    <div class="navbar-brand"></div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item {% if (route == 'index') %} active {% endif %}">
+                                <a class="nav-link" href="{{ path('index') }}">Главная</a>
+                            </li>
+                            <li class="nav-item {% if (route == 'news' or route == 'news_view') %} active {% endif %}">
+                                <a class="nav-link" href="{{ path('news') }}">Новости</a>
+                            </li>
+                            <li class="nav-item {% if (route == 'documents') %} active {% endif %}">
+                                <a class="nav-link" href="{{ path('documents') }}">Документы</a>
+                            </li>
+                            <li class="nav-item {% if (route == 'tariffs') %} active {% endif %}">
+                                <a class="nav-link" href="{{ path('tariffs') }}">Тарифы</a>
+                            </li>
+                            <li class="nav-item {% if (route == 'map') %} active {% endif %}">
+                                <a class="nav-link" href="{{ path('map') }}">Карта СНТ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container" style="padding:35px">
+        {% for flashMessage in app.session.flashbag.get('success-notice') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flashMessage }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error-notice') %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ flashMessage }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="container">
+        &copy; 2017 - 2018 sfazan.ru
+    </footer>
+{% endblock %}

@@ -1,0 +1,51 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Feedbacks
+ * @package AppBundle\Entity
+ * @ORM\Table(name="feedbacks")
+ * @ORM\Entity
+ */
+class Feedbacks
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $message;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $text;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

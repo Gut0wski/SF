@@ -1,0 +1,52 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Blocks
+ * @package AppBundle\Entity
+ * @ORM\Table(name="blocks")
+ * @ORM\Entity
+ */
+class Blocks
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_start;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_end;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $moderator;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $reason;
+
+    public function __construct()
+    {
+        $this->date_start = new \DateTime();
+        $this->date_end = new \DateTime();
+    }
+}
